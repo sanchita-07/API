@@ -28,7 +28,16 @@ let schema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
+        trim: true,
+        minlength: 6
     },
+})
+
+schema.pre('save', (next) =>{
+    if(this.isModified('password')){
+        this.password = bcrypt.hash(this.password,10)
+    }
+    next();
 })
 
 const Userdb = mongoose.model('Userdb',schema);

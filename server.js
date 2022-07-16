@@ -1,15 +1,17 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const morgan = require('morgan');
-const bodyparser = require('body-parser');
-const path = require('path');
+// const token = require('jsonwebtoken');
+// const morgan = require('morgan');
+// const bodyparser = require('body-parser');
+// const path = require('path');
 
 const app = express();
 
-require('./model');
-app.use(require('./router'));
+const Userdb = require('./model');
 app.use(express.json());
-app.use(morgan('tiny'));
+app.use(require('./router'));
+
+// app.use(morgan('tiny'));
 
 dotenv.config({path: './config.env'})
 const PORT = process.env.PORT || 8080;
