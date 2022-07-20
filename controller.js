@@ -1,7 +1,9 @@
-let Userdb = require('./model');
+const Userdb = require('./model');
 
 //create and save new user
 exports.create = (req,res) => {
+
+const {name, email, password} = req.body;
 //validate request
 if(!req.body){
     res.status(400).send({message: "Field Required!"});
@@ -16,10 +18,9 @@ const user = new Userdb({
 })
 
 //save user in the database
-user
-.save(user)
+user.save(user)
 .then(data =>{
-    res.send(data)
+    res.send(data).json({message : "Registered Successfully!"});
 })
 
 .catch(err =>{
@@ -61,9 +62,7 @@ exports.find = (req,res) => {
 //update a new identified user by user id
 exports.update = (req,res) => {
 if(!req.body){
-    return res
-    .status(400)
-    .send({message: "Data to Update can not be empty"})
+    return res.status(400).send({message: "Data to Update can not be empty"})
 }
 const id = req.params.id;
 Userdb.findByIdAndUpdate(id,req.body,{useFindAndModify: false})

@@ -1,6 +1,6 @@
-const express = require("express");
-const dotenv = require("dotenv");
-// const token = require('jsonwebtoken');
+const express = require('express');
+const dotenv = require('dotenv');
+const token = require('jsonwebtoken');
 // const morgan = require('morgan');
 // const bodyparser = require('body-parser');
 // const path = require('path');
@@ -9,9 +9,9 @@ dotenv.config({ path: "./config.env" });
 
 const app = express();
 
-const Userdb = require("./model");
+const Userdb = require('./model');
 app.use(express.json());
-app.use(require("./router"));
+app.use(require('./router'));
 
 // app.use(morgan('tiny'));
 
