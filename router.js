@@ -7,7 +7,7 @@ route.get('/',(req,res) =>{
 })
 
  route.post('/users', controller.create);
- route.get('/users', controller.find);
+ route.get('/users', controller.read);
  route.put('/users/:id', controller.update);
  route.delete('/users/:id', controller.delete);
 

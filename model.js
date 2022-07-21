@@ -3,14 +3,13 @@ const bcrypt = require('bcrypt');
 // const token = require('jsonwebtoken');
 const DB = process.env.DATABASE;
 
-//helps to get rid of Reference errors
 mongoose.connect(DB)
   .then(() => {
     console.log(`Connection Successful!`);
   })
   .catch((err) => {
-    console.log(err);
     console.log(`No connection!`);
+    console.log(err);
   });
 
 let schema = new mongoose.Schema({

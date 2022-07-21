@@ -4,47 +4,41 @@ const Userdb = require('./model');
 exports.create = (req,res) => {
 
 const {name, email, password} = req.body;
+
 //validate request
 if(!req.body){
-    res.status(400).send({message: "Field Required!"});
-    return;
+   return res.status(400).send({message: "Field Required!"});
 }
 
 //new user
-const user = new Userdb({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-})
+const user = new Userdb({name,email,password})
 
 //save user in the database
 user.save(user)
 .then(data =>{
-    res.send(data).json({message : "Registered Successfully!"});
+    res.json({message : "Registered Successfully!"});
 })
 
 .catch(err =>{
-    res.status(500).send({
-        message: err.message || "Error occured while creating operation!"
-    });
+    res.status(400).send({message: err.message});
 })
 }
 
-//retrive and require user
-exports.find = (req,res) => {
+//retrive user
+exports.read = (req,res) => {
 
     if(req.query.id){
         const id = req.query.id;
         Userdb.findById(id)
         .then(data => {
             if(!data){
-                res.status(404).send({message: `Not found user with id ${id}`})
+                res.status(404).send({message: `User with id ${id} not found`})
             }
             else
             res.send(data)
         })
         .catch(err =>{
-            res.status(500).send({message: `Error retrieving user with id ${id}`})
+            res.status(500).send({message: `Error user with id ${id}`})
         })
     }
     Userdb.find()
@@ -85,7 +79,7 @@ exports.delete = (req,res) => {
     Userdb.findByIdAndDelete(id)
     .then(data =>{
         if(!data){
-            res.status(404).send({message:`Cannot Delete with id ${id}, Maybe id is wrong`})
+            res.status(404).send({message:`Cannot Delete User with id ${id}, Data is incomplete.`})
         }
         else{
             res.send({
